@@ -15,7 +15,6 @@ import com.example.battleship.game.GameController
 import com.example.battleship.ui.components.BoardGrid
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.layout.requiredWidth
@@ -56,23 +55,6 @@ fun GameScreen(
                 val spacing = 0.dp
 
                 val titleHeight = 24.dp
-                val verticalPadding = 16.dp
-
-                val availableBoardWidth =
-                    (maxWidth
-                            - edgeDividerWidth * 2
-                            - hpBarWidth * 2
-                            - centerDividerWidth
-                            - spacing * 6
-                            ) / 2
-
-                val availableBoardHeight =
-                    maxHeight - titleHeight - verticalPadding
-
-                val rawBoardSize =
-                    minOf(availableBoardWidth, availableBoardHeight)
-
-                val cellSize = rawBoardSize / 10
                 val boardSize = maxHeight - titleHeight
 
                 val totalContentWidth =

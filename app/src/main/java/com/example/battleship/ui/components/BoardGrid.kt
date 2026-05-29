@@ -1,13 +1,9 @@
 package com.example.battleship.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.foundation.Image
 import androidx.compose.ui.graphics.graphicsLayer
@@ -35,20 +31,6 @@ fun BoardGrid(
                     val shotValue = shots[x][y]
                     val shipValue = ships[x][y]
 
-                    val color = when {
-                        shotValue == "x" -> Color.Red
-                        shotValue == "*" -> Color.Gray
-                        showShips && shipValue != "0" -> Color.Yellow
-                        else -> Color.Cyan
-                    }
-
-                    val text = when {
-                        shotValue == "x" -> "X"
-                        shotValue == "*" -> "•"
-                        showShips && shipValue != "0" -> shipValue
-                        else -> ""
-                    }
-
                     val waterRotation = ((x * 31 + y * 17) % 4) * 90f
 
                     val up = isShipCell(ships, x - 1, y)
@@ -57,8 +39,6 @@ fun BoardGrid(
                     val right = isShipCell(ships, x, y + 1)
 
                     val isShip = shipValue != "0"
-                    val isHit = shotValue == "x"
-
                     val neighborCount = listOf(up, down, left, right).count { it }
                     val isShipEnd = isShip && neighborCount == 1
                     val isShipMiddle = isShip && neighborCount >= 2
