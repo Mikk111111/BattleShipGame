@@ -11,6 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.battleship.ui.components.BackgroundImage
 import androidx.compose.material3.CardDefaults
+import androidx.compose.ui.platform.LocalContext
+import com.example.battleship.audio.SoundManager
 
 @Composable
 fun StartScreen(
@@ -25,6 +27,7 @@ fun StartScreen(
         BackgroundImage()
 
         val buttonWidth = 180.dp
+        val context = LocalContext.current
 
         Card(
             modifier = Modifier.align(Alignment.Center),
@@ -43,7 +46,10 @@ fun StartScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Button(
-                    onClick = onStartClick,
+                    onClick = {
+                        SoundManager.playClick(context)
+                        onStartClick()
+                              },
                     modifier = Modifier.width(buttonWidth)
                 ) {
                     Text("Start")
@@ -52,16 +58,22 @@ fun StartScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Button(
-                    onClick = onPlayerNameClick,
+                    onClick = {
+                        SoundManager.playClick(context)
+                        onPlayerNameClick()
+                    },
                     modifier = Modifier.width(buttonWidth)
                 ) {
-                    Text("Player Name")
+                    Text("Set Player Name")
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Button(
-                    onClick = onScoreClick,
+                    onClick = {
+                        SoundManager.playClick(context)
+                        onScoreClick()
+                    },
                     modifier = Modifier.width(buttonWidth)
                 ) {
                     Text("Score")
@@ -70,7 +82,10 @@ fun StartScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Button(
-                    onClick = onExitClick,
+                    onClick = {
+                        SoundManager.playClick(context)
+                        onExitClick()
+                    },
                     modifier = Modifier.width(buttonWidth)
                 ) {
                     Text("Exit")

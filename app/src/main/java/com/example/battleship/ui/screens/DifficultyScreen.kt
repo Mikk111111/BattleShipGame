@@ -9,6 +9,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.battleship.game.GameController
 import com.example.battleship.ui.components.BackgroundImage
+import androidx.compose.ui.platform.LocalContext
+import com.example.battleship.audio.SoundManager
 
 @Composable
 fun DifficultyScreen(
@@ -16,6 +18,7 @@ fun DifficultyScreen(
     onBackClick: () -> Unit
 ) {
     val buttonWidth = 180.dp
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -41,6 +44,7 @@ fun DifficultyScreen(
 
                 Button(
                     onClick = {
+                        SoundManager.playClick(context)
                         onDifficultySelected(GameController.Difficulty.EASY)
                     },
                     modifier = Modifier.width(buttonWidth)
@@ -52,6 +56,7 @@ fun DifficultyScreen(
 
                 Button(
                     onClick = {
+                        SoundManager.playClick(context)
                         onDifficultySelected(GameController.Difficulty.NORMAL)
                     },
                     modifier = Modifier.width(buttonWidth)
@@ -63,6 +68,7 @@ fun DifficultyScreen(
 
                 Button(
                     onClick = {
+                        SoundManager.playClick(context)
                         onDifficultySelected(GameController.Difficulty.HARD)
                     },
                     modifier = Modifier.width(buttonWidth)
@@ -73,7 +79,10 @@ fun DifficultyScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Button(
-                    onClick = onBackClick,
+                    onClick = {
+                        SoundManager.playClick(context)
+                        onBackClick()
+                              },
                     modifier = Modifier.width(buttonWidth)
                 ) {
                     Text("Back")

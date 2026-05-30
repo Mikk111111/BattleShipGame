@@ -8,6 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.battleship.ui.components.BackgroundImage
+import androidx.compose.ui.platform.LocalContext
+import com.example.battleship.audio.SoundManager
 
 @Composable
 fun PlayerNameScreen(
@@ -17,6 +19,7 @@ fun PlayerNameScreen(
 ) {
     var name by remember { mutableStateOf(currentName) }
     val buttonWidth = 180.dp
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -50,6 +53,7 @@ fun PlayerNameScreen(
 
                 Button(
                     onClick = {
+                        SoundManager.playClick(context)
                         if (name.isNotBlank()) {
                             onSaveClick(name.trim())
                         }
@@ -62,7 +66,9 @@ fun PlayerNameScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(
-                    onClick = onBackClick,
+                    onClick = {
+                        SoundManager.playClick(context)
+                        onBackClick},
                     modifier = Modifier.width(buttonWidth)
                 ) {
                     Text("Back")

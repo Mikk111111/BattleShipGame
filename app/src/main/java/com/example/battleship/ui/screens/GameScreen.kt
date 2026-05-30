@@ -19,6 +19,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
+import com.example.battleship.audio.SoundManager
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
@@ -30,10 +32,11 @@ fun GameScreen(
 ) {
     var refresh by remember { mutableIntStateOf(0) }
     var scoreSaved by remember { mutableStateOf(false) }
-
+    val context = LocalContext.current
     val winner = gameController.getWinner()
 
     if (winner == "Player" && !scoreSaved) {
+        SoundManager.playVictory(context)
         onPlayerWon()
         scoreSaved = true
     }
@@ -115,7 +118,20 @@ fun GameScreen(
                         showShips = false,
                         clickable = winner == null,
                         onCellClick = { x, y ->
+
+                            if (gameController.data.playerShotData[x][y] != "0") {
+                                return@BoardWithTitle
+                            }
+
+                            val wasHit = gameController.data.enemyShipData[x][y] != "0"
                             gameController.playerShoot(x, y)
+
+                            if (wasHit) {
+                                SoundManager.playHit(context)
+                            } else {
+                                SoundManager.playMiss(context)
+                            }
+
                             refresh++
                         }
                     )

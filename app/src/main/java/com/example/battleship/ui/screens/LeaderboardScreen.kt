@@ -17,12 +17,16 @@ import com.example.battleship.ui.components.BackgroundImage
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.compose.ui.platform.LocalContext
+import com.example.battleship.audio.SoundManager
 
 @Composable
 fun LeaderboardScreen(
     scores: List<ScoreEntry>,
     onBackClick: () -> Unit
 ) {
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -68,7 +72,12 @@ fun LeaderboardScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Button(onClick = onBackClick) {
+                Button(
+                    onClick = {
+                        SoundManager.playClick(context)
+                        onBackClick
+                    }
+                ) {
                     Text("Back")
                 }
             }
